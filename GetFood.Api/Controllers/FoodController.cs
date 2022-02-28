@@ -16,5 +16,10 @@ namespace GetFood.Api.Controllers
         {
             return null;
         }
+        [HttpDelete]
+        public string DeleteFood()
+        {
+            return null;
+        }
     }
 }
