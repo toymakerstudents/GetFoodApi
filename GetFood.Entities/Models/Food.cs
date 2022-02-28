@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GetFood.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GetFood.Entities.Models
 {
-    public class Food
+    public class Food:EntityBase
     {
         public int FoodId { get; set; }
         public string FoodName { get; set; }
