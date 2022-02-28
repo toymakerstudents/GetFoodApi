@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GetFood.Entities.IBase
 {
-    interface IEntityBase
+    /// <summary>
+    /// Represents interface of an Entity
+    /// </summary>
+    public interface IEntityBase
     {
     }
 }

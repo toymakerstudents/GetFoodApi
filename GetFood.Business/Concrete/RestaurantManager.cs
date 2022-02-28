@@ -35,7 +35,7 @@ namespace GetFood.Business.Concrete
                 {
 
                     var mappedRestaurant = mapper.Map<Restaurant>(restaurant);
-                    var responseRestaurant = repository.CreateRestaurant(id, mappedRestaurant);
+                    var responseRestaurant = repository.CreateRestaurant(id,mappedRestaurant);
                     var responseRestaurantDto = mapper.Map<RestaurantDto>(responseRestaurant);
 
                     var response = new Response<RestaurantDto>

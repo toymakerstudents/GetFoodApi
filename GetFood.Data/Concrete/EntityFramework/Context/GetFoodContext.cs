@@ -18,6 +18,7 @@ namespace GetFood.Data.Concrete.EntityFramework.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Food> Foods { get; set; }
 
 
 
