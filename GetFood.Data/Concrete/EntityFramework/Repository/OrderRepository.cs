@@ -1,4 +1,5 @@
 ﻿using GetFood.Entities.Dtos;
+using GetFood.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,16 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
         public async Task<List<OrderDto>> GetOrdersByRestaurantId(int restaurantId)
         {
             return null;
+        }
+        
+        /// <summary>
+        /// Inserts an order.
+        /// </summary>
+        /// <param name="order">Order to add</param>
+        /// <returns>Id of the new inserted object</returns>
+        public async Task<int> AddOrder(Order order)
+        {
+            return 0;
         }
     }
 }
