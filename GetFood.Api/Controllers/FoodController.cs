@@ -11,8 +11,8 @@ namespace GetFood.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        [HttpGet]
-        public string GetFood()
+        [HttpPost]
+        public string AddFood()
         {
             return null;
         }
