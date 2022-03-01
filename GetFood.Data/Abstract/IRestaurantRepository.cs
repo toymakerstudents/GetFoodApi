@@ -10,6 +10,6 @@ namespace GetFood.Data.Abstract
     public interface IRestaurantRepository:IRepository<Restaurant>
     {
         public Restaurant CreateRestaurant(int id, Restaurant restaurant);
-        
+        public Restaurant Find(int id);
     }
 }

@@ -21,6 +21,8 @@ namespace GetFood.Business.Mapper
 
             CreateMap<Restaurant, RestaurantCreateDto>().ReverseMap();
             CreateMap<Restaurant, RestaurantDto>().ReverseMap();
+
+            CreateMap<Province, ProvinceDto>().ReverseMap();
         }
     }
 }

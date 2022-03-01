@@ -14,6 +14,7 @@ namespace GetFood.Data.Abstract
         public User Find(int id);
         public User Register(User userRegister);
         public User Login(User userLogin);
+        public User Update(User user);
 
     }
 }

@@ -14,6 +14,7 @@ namespace GetFood.Business.Abstract
         public IResponse<UserDto> Find(int id);
         public IResponse<UserToken> Register(UserRegisterDto userRegister);
         public IResponse<UserToken> Login(UserLoginDto userLogin);
+        public IResponse<UserDto> BindRestaurantToUser(int userId, RestaurantCreateDto restaurant);
 
     }
 }

@@ -64,6 +64,24 @@ namespace GetFood.Api.Controllers
 
 
 
+        /*
+        It is temporary, it will take id from token       
+        */
+
+        [HttpPost("BindRestaurant")]
+        [AllowAnonymous]
+        public IResponse<UserDto> BindRestaurantToUser(int id, RestaurantCreateDto restaurant)
+        {
+            var response = service.BindRestaurantToUser(id, restaurant);
+            return response;
+
+        }
+
+
+
+
+
+
 
 
 
