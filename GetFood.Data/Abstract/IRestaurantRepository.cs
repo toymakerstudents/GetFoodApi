@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace GetFood.Data.Abstract
 {
-    public interface IRestaurantRepository
+    public interface IRestaurantRepository:IRepository<Restaurant>
     {
         public Restaurant CreateRestaurant(int id, Restaurant restaurant);
+        
     }
 }

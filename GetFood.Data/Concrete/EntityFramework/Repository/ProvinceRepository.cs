@@ -4,20 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GetFood.Data.Concrete.EntityFramework.Repository
 {
-    public class CustomerRepository:EntityFrameworkRepositoryBase<Customer>,ICustomerRepository
+    public class ProvinceRepository : EntityFrameworkRepositoryBase<Province>, IProvinceRepository
     {
-        public CustomerRepository(DbContext context) : base(dbContext:context)
+        public ProvinceRepository(DbContext dbContext) : base(dbContext)
         {
-
         }
-
-       
-   
     }
 }

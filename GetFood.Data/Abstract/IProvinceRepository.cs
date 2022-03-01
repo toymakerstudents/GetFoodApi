@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace GetFood.Data.Abstract
 {
-   public  interface ICustomerRepository:IRepository<Customer>
+    public interface IProvinceRepository:IRepository<Province>
     {
-        
     }
 }

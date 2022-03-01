@@ -20,7 +20,7 @@ namespace GetFood.Data.Abstract
         /// </summary>
         /// <param name="filter">Filter for entitites, gets all of the entities if null</param>
         /// <returns>Collection of entities</returns>
-        ICollection<T> GetAll(Expression<Func<T, bool>> filter = null);
+         IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null);
 
         /// <summary>
         /// Returns the first entry by filter.
