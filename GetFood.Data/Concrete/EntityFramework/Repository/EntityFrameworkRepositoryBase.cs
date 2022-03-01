@@ -37,15 +37,15 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
         /// Adds the given entity to entity set.
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        /// <returns>Id of the entity</returns>
-        public virtual int Add(T entity)
+        /// <returns>Added Entity</returns>
+        public virtual T Add(T entity)
         {
             var entityToAdd = _dbContext.Entry(entity);
             entityToAdd.State = EntityState.Added;
             _dbContext.SaveChanges();
 
             //Returns the primary key value.
-            return (int) entityToAdd.Entity.GetType().GetProperty(keyname).GetValue(entity,null);
+            return entityToAdd.Entity;
         }
 
         /// <summary>
@@ -94,6 +94,7 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
             }
             return query;
         }
+
         /// <summary>
         /// Returns entitiy collection without a condition
         /// </summary>
@@ -103,6 +104,11 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
             return GetAll(null).ToList();
         }
 
+        /// <summary>
+        /// Updates the given entity.
+        /// </summary>
+        /// <param name="entity">Entity to update</param>
+        /// <returns>True if entity successfully updated, false otherwise</returns>
         public virtual bool Update(T entity)
         {
             var updatedEntity = _dbContext.Entry(entity);

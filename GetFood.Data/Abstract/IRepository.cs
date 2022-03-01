@@ -33,8 +33,8 @@ namespace GetFood.Data.Abstract
         /// Adds the given entity to entity set.
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        /// <returns>Id of the entity</returns>
-        int Add(T entity);
+        /// <returns>Added Entity</returns>
+        T Add(T entity);
 
         /// <summary>
         /// Updates the given entity.
