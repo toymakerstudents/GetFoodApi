@@ -1,5 +1,6 @@
 ﻿using GetFood.Entities.Dtos;
 using GetFood.Entities.IBase;
+using GetFood.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace GetFood.Business.Abstract
     public interface IRestaurantService
     {
 
-        public IResponse<RestaurantDto> CreateRestaurant(int id, RestaurantCreateDto restaurant);
+        public Restaurant CreateRestaurant(int userId, RestaurantCreateDto restaurant);
+        public Restaurant Find(int id);
 
     }
 }

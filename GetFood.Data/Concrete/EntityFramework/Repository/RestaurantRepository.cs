@@ -28,6 +28,20 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
 
         }
 
- 
+
+        public Restaurant Find(int id)
+        {
+            var restaurant = context.Set<Restaurant>().FirstOrDefault(x => x.RestaurantId == id);
+            if (restaurant is not null)
+            {
+                return restaurant;
+            }
+            else
+            {
+                throw new Exception("Can not find restaurant");
+            }
+        }
+
+
     }
 }
