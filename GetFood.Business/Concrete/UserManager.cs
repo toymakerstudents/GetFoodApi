@@ -21,11 +21,16 @@ namespace GetFood.Business.Concrete
         private readonly IUserRepository repository;
         private readonly IMapper mapper;
         IConfiguration configuration;
-        public UserManager(IUserRepository repository, IMapper mapper, IConfiguration configuration)
+        private readonly IRestaurantService restaurantService;
+
+        public UserManager(IUserRepository repository, IMapper mapper, IConfiguration configuration,
+           IRestaurantService restaurantService)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.configuration = configuration;
+            this.restaurantService = restaurantService;
+            
         }
 
         public IResponse<List<UserDto>> GetAll()
@@ -87,6 +92,80 @@ namespace GetFood.Business.Concrete
                 };
             }
         }
+
+
+        public IResponse<UserDto> Update(int id, UserUpdateDto user)
+        {
+            var targetItem = repository.Find(id);
+            var mappedItem = mapper.Map(user, targetItem);
+            var updatedItem = repository.Update(mappedItem);
+
+            var userDto = mapper.Map<UserDto>(updatedItem);
+
+            var response = new Response<UserDto>
+            {
+                Message = "Success",
+                StatusCode = StatusCodes.Status200OK,
+                Data = userDto
+            };
+
+            return response;
+
+        }
+
+
+        public IResponse<UserDto> BindRestaurantToUser(int userId, RestaurantCreateDto restaurant)
+        {
+            var findUser = Find(userId);
+            if (findUser.Data != null)
+            {
+                if (findUser.Data.Restaurant == null)
+                {
+                    Restaurant responseRestaurant = restaurantService.CreateRestaurant(userId, restaurant);
+
+
+                    User targetUser = repository.Find(userId);
+                    targetUser.Restaurant = responseRestaurant;
+                    User responseUser = repository.Update(targetUser);
+
+                    UserDto userDto = mapper.Map<UserDto>(responseUser);
+
+                    var response = new Response<UserDto>
+                    {
+                        Message = "Success",
+                        StatusCode = StatusCodes.Status200OK,
+                        Data = userDto
+                    };
+
+                    return response;
+
+                }
+                else
+                {
+                    return new Response<UserDto>
+                    {
+                        Message = "Already have restaurant on this account",
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Data = null
+                    };
+
+                }
+
+            }
+            else
+            {
+                return new Response<UserDto>
+                {
+                    Message = "Can not find user",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+            }
+        }
+
+
+
+
 
 
 
@@ -169,6 +248,13 @@ namespace GetFood.Business.Concrete
 
 
         }
+
+
+        
+
+
+
+
 
 
 

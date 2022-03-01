@@ -18,62 +18,39 @@ namespace GetFood.Business.Concrete
     {
         private readonly IRestaurantRepository repository;
         private readonly IMapper mapper;
-        private readonly IUserService userService;
-        public RestaurantManager(IRestaurantRepository repository, IMapper mapper, IUserService userService)
+        public RestaurantManager(IRestaurantRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
-            this.userService = userService;
         }
 
-        public IResponse<RestaurantDto> CreateRestaurant(int id, RestaurantCreateDto restaurant)
+        public Restaurant CreateRestaurant(int userId, RestaurantCreateDto restaurant)
         {
-            var findUser = userService.Find(id);
-            if(findUser.Data != null)
-            {
-                if (findUser.Data.Restaurant == null)
-                {
-
-                    var mappedRestaurant = mapper.Map<Restaurant>(restaurant);
-                    var responseRestaurant = repository.CreateRestaurant(id, mappedRestaurant);
-                    var responseRestaurantDto = mapper.Map<RestaurantDto>(responseRestaurant);
-
-                    var response = new Response<RestaurantDto>
-                    {
-                        Message = "Success",
-                        StatusCode = StatusCodes.Status200OK,
-                        Data = responseRestaurantDto
-                    };
-
-                    return response;
-
-                }
-                else
-                {
-                    return new Response<RestaurantDto>
-                    {
-                        Message = "Already have restaurant on this account",
-                        StatusCode = StatusCodes.Status500InternalServerError,
-                        Data = null
-                    };
-
-                }
-
-            }
-            else
-            {
-                return new Response<RestaurantDto>
-                {
-                    Message = "Can not find user",
-                    StatusCode = StatusCodes.Status500InternalServerError,
-                    Data = null
-                };
-            }
-
-
-            
+            var mappedRestaurant = mapper.Map<Restaurant>(restaurant);
+            var responseRestaurant = repository.CreateRestaurant(userId, mappedRestaurant);
+            return responseRestaurant;
 
         }
+
+
+
+
+        public Restaurant Find(int id)
+        {
+            var restaurant = repository.Find(id);
+            return restaurant;
+
+        }
+
+
+
+
+
+
+
+
+
+
 
     }
 }

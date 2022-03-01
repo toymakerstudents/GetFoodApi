@@ -22,19 +22,18 @@ namespace GetFood.Api.Controllers
 
 
 
-        // 123
+        
 
-        /*
-        It is temporary, it will take id from token       
-        */
 
-        [HttpPost]
-        public IResponse<RestaurantDto> CreateRestaurant(int id, RestaurantCreateDto restaurant)
-        {
-            var response = service.CreateRestaurant(id, restaurant);
-            return response;
 
-        }
+
+
+
+
+
+
+
+
 
     }
 }

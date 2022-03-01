@@ -38,6 +38,16 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
             
         }
 
+        public User Update(User user)
+        {
+            context.Set<User>().Update(user);
+            context.SaveChanges();
+            return user;
+        }
+
+
+
+
 
         public User Register(User userRegister)
         {
@@ -78,6 +88,9 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
             var user = context.Set<User>().FirstOrDefault(x => x.Email == userLogin.Email && x.Password == userLogin.Password );
             return user;
         }
+
+
+        
 
 
 
