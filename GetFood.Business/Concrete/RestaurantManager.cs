@@ -26,10 +26,10 @@ namespace GetFood.Business.Concrete
 
         public Restaurant CreateRestaurant(int userId, RestaurantCreateDto restaurant)
         {
+
             var mappedRestaurant = mapper.Map<Restaurant>(restaurant);
             var responseRestaurant = repository.CreateRestaurant(userId, mappedRestaurant);
             return responseRestaurant;
-
         }
 
 

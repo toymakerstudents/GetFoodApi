@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GetFood.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GetFood.Data.Abstract
 {
-    interface ICustomerRepository
+   public  interface ICustomerRepository:IRepository<Customer>
     {
     }
 }
