@@ -51,7 +51,7 @@ namespace GetFood.Business.Main
                 (
                  issuer: configuration["Tokens:Issuer"],
                  audience: configuration["Tokens:Issuer"],
-                 expires: DateTime.Now.AddMinutes(50),
+                 expires: DateTime.Now.AddMinutes(5000),
                  notBefore: DateTime.Now, 
                  signingCredentials: cred,
                  claims: claimsIdentity.Claims

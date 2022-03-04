@@ -10,6 +10,7 @@ namespace GetFood.Business.Concrete
 {
     public class CustomerManager
     {
+        
         public CustomerManager()
         {
         }

@@ -14,6 +14,10 @@ namespace GetFood.Business.Abstract
 
         public Restaurant CreateRestaurant(int userId, RestaurantCreateDto restaurant);
         public Restaurant Find(int id);
+        public IResponse<FoodDto> AddFoodToRestaurant(int id, FoodCreateDto food);
+        public IResponse<List<RestaurantDto>> GetRestaurantsByLocation(int provinceId);
+        public Restaurant GetRestaurantById(int restaurantId);
+        public List<Food> GetFoodsOfRestaurant(int restaurantId);
 
     }
 }

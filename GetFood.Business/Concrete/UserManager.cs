@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,14 +23,16 @@ namespace GetFood.Business.Concrete
         private readonly IMapper mapper;
         IConfiguration configuration;
         private readonly IRestaurantService restaurantService;
+        private readonly IProvinceService provinceService;
 
         public UserManager(IUserRepository repository, IMapper mapper, IConfiguration configuration,
-           IRestaurantService restaurantService)
+           IRestaurantService restaurantService, IProvinceService provinceService)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.configuration = configuration;
             this.restaurantService = restaurantService;
+            this.provinceService = provinceService;
             
         }
 
@@ -114,13 +117,18 @@ namespace GetFood.Business.Concrete
         }
 
 
+        
+
+
         public IResponse<UserDto> BindRestaurantToUser(int userId, RestaurantCreateDto restaurant)
         {
-            var findUser = Find(userId);
-            if (findUser.Data != null)
+            //var findUser = Find(userId);
+            var findUser = repository.Find(userId);
+            if (findUser != null)
             {
-                if (findUser.Data.Restaurant == null)
+                if (findUser.Restaurant == null)
                 {
+                    restaurant.Province = findUser.Customer.Province;
                     Restaurant responseRestaurant = restaurantService.CreateRestaurant(userId, restaurant);
 
 
@@ -163,8 +171,52 @@ namespace GetFood.Business.Concrete
             }
         }
 
+        public IResponse<RestaurantDto> GetRestaurantOfUser(int userId)
+        {
+            var restaurant = repository.GetRestaurantOfUser(userId);
+            var restaurantDto = mapper.Map<RestaurantDto>(restaurant);
+            var response = new Response<RestaurantDto>
+            {
+                Message = "Success",
+                StatusCode = StatusCodes.Status200OK,
+                Data = restaurantDto
+            };
+            return response;
+        }
+
+        public Customer GetCustomerAccountOfUser(int userId)
+        {
+            var customer = repository.GetCustomerAccountOfUser(userId);
+            return customer;
+        }
 
 
+        public int ReadUserToken(ClaimsIdentity claimsIdentity)
+        {
+            try
+            {
+                /*
+                var t1 = claimsIdentity.Claims;
+                var t2 = t1.ToList();
+                var t3 = t2[1];
+                var t4 = t3.Value;
+                */
+
+                List<Claim> claims = claimsIdentity.Claims.ToList();
+                Claim claimId = claims.FirstOrDefault(x => x.Type == "id");
+                int userId = Convert.ToInt32(claimId.Value);
+
+
+                return userId;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
+
+        }
 
 
 
@@ -173,8 +225,9 @@ namespace GetFood.Business.Concrete
         public IResponse<UserToken> Register(UserRegisterDto userRegister)
         {
             try
-            {
+            {  
                 var mappedUserRegister = mapper.Map<User>(userRegister);
+                mappedUserRegister.Customer.Province = provinceService.Find(userRegister.Customer.ProvinceId);
                 var responseUser = repository.Register(mappedUserRegister);
 
                 var tokenString = new TokenManager(configuration).CreateAccessToken(responseUser);

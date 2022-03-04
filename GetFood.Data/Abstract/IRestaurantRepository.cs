@@ -11,5 +11,7 @@ namespace GetFood.Data.Abstract
     {
         public Restaurant CreateRestaurant(int id, Restaurant restaurant);
         public Restaurant Find(int id);
+        public List<Restaurant> GetRestaurantsByLocation(int provinceId);
+        public Restaurant GetRestaurantById(int restaurantId);
     }
 }

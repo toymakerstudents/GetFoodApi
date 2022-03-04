@@ -1,4 +1,5 @@
 ﻿using GetFood.Business.Abstract;
+using GetFood.Entities.Base;
 using GetFood.Entities.Dtos;
 using GetFood.Entities.IBase;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,6 +44,65 @@ namespace GetFood.Api.Controllers
             return response;
         }
 
+        [HttpGet("GetUser")]
+        public IResponse<UserDto> GetUser()
+        {
+            ClaimsIdentity identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userId = service.ReadUserToken(identity);
+
+            if(userId > 0)
+            {
+                var response = service.Find(userId);
+                return response;
+            }
+            else
+            {
+                return new Response<UserDto>
+                {
+                    Message = "Success",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+
+            }
+
+
+            #region RESERVE IDENTITY READ PROCESS
+            /*
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+
+                var email = identity.FindFirst(ClaimTypes.Email);
+                // or
+                //identity.FindFirst("ClaimName").Value;
+                var newtest = claims;
+                var new2 = claims.ToList();
+                var new3 = new2[1];
+                var new35 = new3.Value;
+                var new4 = "hello";
+
+                //return new35;
+            }
+            */
+            #endregion
+
+
+
+        }
+
+        [HttpGet("GetRestaurantOfUser")]
+        public IResponse<RestaurantDto> GetRestaurantOfUser()
+        {
+            ClaimsIdentity identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userId = service.ReadUserToken(identity);
+            var response = service.GetRestaurantOfUser(userId);
+            return response;
+
+        }
+
+
 
         [HttpPost("Register")]
         [AllowAnonymous]
@@ -70,16 +130,18 @@ namespace GetFood.Api.Controllers
 
         [HttpPost("BindRestaurant")]
         [AllowAnonymous]
-        public IResponse<UserDto> BindRestaurantToUser(int id, RestaurantCreateDto restaurant)
+        public IResponse<UserDto> BindRestaurantToUser(RestaurantCreateDto restaurant)
         {
-            var response = service.BindRestaurantToUser(id, restaurant);
+            ClaimsIdentity identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userId = service.ReadUserToken(identity);
+            var response = service.BindRestaurantToUser(userId, restaurant);
             return response;
 
         }
 
 
 
-
+        
 
 
 
@@ -98,6 +160,7 @@ namespace GetFood.Api.Controllers
 
 
         [HttpGet("TokenRead")]
+        [AllowAnonymous]
         public string TokenRead()
         {
             /*
@@ -108,6 +171,7 @@ namespace GetFood.Api.Controllers
             {
                 IEnumerable<Claim> claims = identity.Claims;
 
+                var email = identity.FindFirst(ClaimTypes.Email);
                 // or
                 //identity.FindFirst("ClaimName").Value;
                 var newtest = claims;

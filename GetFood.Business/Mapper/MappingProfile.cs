@@ -18,9 +18,16 @@ namespace GetFood.Business.Mapper
             CreateMap<User, UserLoginDto>().ReverseMap();
 
             CreateMap<Customer, CustomerRegisterDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
 
             CreateMap<Restaurant, RestaurantCreateDto>().ReverseMap();
             CreateMap<Restaurant, RestaurantDto>().ReverseMap();
+
+            CreateMap<Food, FoodCreateDto>().ReverseMap();
+            CreateMap<Food, FoodDto>().ReverseMap();
+
+            CreateMap<Order, OrderDto>().ReverseMap();
+
         }
     }
 }

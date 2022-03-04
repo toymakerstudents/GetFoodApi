@@ -19,6 +19,8 @@ namespace GetFood.Data.Concrete.EntityFramework.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Food> Foods { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Province> Provinces { get; set; }
 
 
 

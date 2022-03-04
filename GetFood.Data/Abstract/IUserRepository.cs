@@ -15,6 +15,8 @@ namespace GetFood.Data.Abstract
         public User Register(User userRegister);
         public User Login(User userLogin);
         public User Update(User user);
+        public Customer GetCustomerAccountOfUser(int userId);
+        public Restaurant GetRestaurantOfUser(int userId);
 
     }
 }

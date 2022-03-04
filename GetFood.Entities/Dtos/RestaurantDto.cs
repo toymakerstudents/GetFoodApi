@@ -9,6 +9,7 @@ namespace GetFood.Entities.Dtos
 {
     public class RestaurantDto : DtoBase
     {
+        public int RestaurantId { get; set; }
         public string RestaurantName { get; set; }
     }
 }

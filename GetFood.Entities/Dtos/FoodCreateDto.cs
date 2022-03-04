@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GetFood.Entities.Dtos
 {
-    public class CustomerDto : DtoBase
+    public class FoodCreateDto : DtoBase
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FoodName { get; set; }
+        public double Price { get; set; }
     }
 }

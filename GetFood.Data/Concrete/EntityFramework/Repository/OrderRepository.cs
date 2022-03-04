@@ -1,5 +1,7 @@
-﻿using GetFood.Entities.Dtos;
+﻿using GetFood.Data.Abstract;
+using GetFood.Entities.Dtos;
 using GetFood.Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,44 +13,34 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
     /// <summary>
     /// Data Access Class For Order Entity (Entity Framework)
     /// </summary>
-    public class OrderRepository
+    public class OrderRepository : IOrderRepository
     {
-        /// <summary>
-        /// Returns all orders.
-        /// </summary>
-        /// <returns>List of order dto</returns>
-        public async Task<List<OrderDto>> GetOrder()
+        private readonly DbContext context;
+        public OrderRepository(DbContext context)
         {
-            return null;
+            this.context = context;
         }
 
-        /// <summary>
-        /// Returns an order by given id
-        /// </summary>
-        /// <returns></returns>
-        public async Task<OrderDto> GetOrderById(int orderId)
-        {
-            return null;
-        }
 
-        /// <summary>
-        /// Return order which belongs to the restaurant (Given Id)
-        /// </summary>
-        /// <param name="restaurantId">Restaurant Id</param>
-        /// <returns>List of order dto</returns>
-        public async Task<List<OrderDto>> GetOrdersByRestaurantId(int restaurantId)
-        {
-            return null;
-        }
+
+
         
-        /// <summary>
-        /// Inserts an order.
-        /// </summary>
-        /// <param name="order">Order to add</param>
-        /// <returns>Id of the new inserted object</returns>
-        public async Task<int> AddOrder(Order order)
+
+        public Order OrderFood(Order order)
         {
-            return 0;
+            context.Set<Order>().Add(order);
+            context.SaveChanges();
+            return order;
         }
+
+
+        public List<Order> GetOrdersOfCustomer(int customerId)
+        {
+            var orderList = context.Set<Order>().Include(x => x.Food).Include(x => x.Restaurant).Where(x => x.Customer.CustomerId == customerId).ToList();
+            return orderList;
+        }
+
+
+
     }
 }

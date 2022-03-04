@@ -11,6 +11,7 @@ namespace GetFood.Entities.Dtos
     public class UserDto : DtoBase
     {
         public string Email { get; set; }
+        public CustomerDto Customer { get; set; }
         public RestaurantDto Restaurant { get; set; }
 
     }

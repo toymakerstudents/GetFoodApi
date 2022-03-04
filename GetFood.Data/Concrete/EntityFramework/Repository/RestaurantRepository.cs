@@ -21,11 +21,23 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
 
         public Restaurant CreateRestaurant(int id, Restaurant restaurant)
         {
-
             context.Set<Restaurant>().Add(restaurant);
             context.SaveChanges();
             return restaurant;
 
+        }
+
+        public List<Restaurant> GetRestaurantsByLocation(int provinceId)
+        {
+            var restaurantList = context.Set<Restaurant>().Include(x => x.Province)
+                .Where(x => x.Province.ProvinceId == provinceId).ToList();
+            return restaurantList;
+        }
+
+        public Restaurant GetRestaurantById(int restaurantId)
+        {
+            var restaurant = context.Set<Restaurant>().FirstOrDefault(x => x.RestaurantId == restaurantId);
+            return restaurant;
         }
 
 
@@ -41,6 +53,9 @@ namespace GetFood.Data.Concrete.EntityFramework.Repository
                 throw new Exception("Can not find restaurant");
             }
         }
+
+        
+
 
 
     }

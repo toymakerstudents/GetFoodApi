@@ -38,6 +38,10 @@ namespace GetFood.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors();
+
+
+
             #region JSON WEB TOKEN
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(cfg =>
             {
@@ -67,9 +71,15 @@ namespace GetFood.Api
 
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IRestaurantService, RestaurantManager>();
+            services.AddScoped<IFoodService, FoodManager>();
+            services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<IProvinceService, ProvinceManager>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+            services.AddScoped<IFoodRepository, FoodRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProvinceRepository, ProvinceRepository>();
 
 
 
@@ -117,6 +127,9 @@ namespace GetFood.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GetFood.Api v1"));
             }
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
 
             app.UseHttpsRedirection();
 

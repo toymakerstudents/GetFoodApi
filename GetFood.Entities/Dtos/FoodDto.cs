@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace GetFood.Entities.Dtos
 {
-    public class OrderDto
+    public class FoodDto
     {
-        public int OrderId { get; set; }
-        public string Status { get; set; }
-        public Customer Customer { get; set; }
+        public int FoodId { get; set; }
+        public string FoodName { get; set; }
+        public double Price { get; set; }
         public Restaurant Restaurant { get; set; }
-        public Food Food { get; set; }
     }
 }
